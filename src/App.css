@@ -1,38 +1,70 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* background: #f88989; */
+}
+/* * {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+* * {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+* * * {
+  background-color: rgba(0, 0, 255, 0.2);
+}
+* * * * {
+  background-color: rgba(255, 0, 255, 0.2);
+}
+* * * * * {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+* * * * * * {
+  background-color: rgba(255, 255, 0, 0.2);
+} */
+/* 
+.sidebar2 {
+  box-shadow: 0 0 0 10000px #666666;
+} */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(156, 156, 156);
+  /* scrollbar-color: var(--secondary) var(--primary); */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  scrollbar-color: rgb(156, 156, 156);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+*::-webkit-scrollbar-track {
+  /* background: var(--primary); */
+  border-radius: 5px;
+  /* background: white; */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+*::-webkit-scrollbar-thumb {
+  /* background-color: var(--secondary); */
+  border-radius: 14px;
+  height: 8px;
+  background-color: rgb(156, 156, 156);
+
+  /* border: 3px solid var(--primary); */
 }
 
-.App-link {
-  color: #61dafb;
+.tags-wrapper::-webkit-scrollbar {
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@layer components {
+  .custom-linear-gradient {
+    @apply bg-gradient-to-r from-[#eff1f3] via-[#e2e2e2] to-[#eff1f3];
   }
 }
