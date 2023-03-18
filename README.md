@@ -1,3 +1,3 @@
 # **Streamy**
 
-## A Video Streaming Platform made using YouTube API.
+#### A Video Streaming Platform made using YouTube API.
