@@ -26,7 +26,6 @@ const VideoCard = ({ video }) => {
   const [duration, setDuration] = useState(null);
   const [channelIcon, setChannelIcon] = useState(null);
 
-  
   const seconds = duration && moment.duration(duration).asSeconds();
   const _duration = duration && moment.utc(seconds * 1000).format('mm:ss');
   // console.log(_duration);
@@ -67,7 +66,7 @@ const VideoCard = ({ video }) => {
 
   return (
     <div className='video w-full cursor-pointer h-fit'>
-      <div className='video__thumbnail relative top-0 left-0'>
+      <div className='video__thumbnail  relative'>
         <img
           src={medium.url}
           className='rounded-xl w-full'

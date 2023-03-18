@@ -12,7 +12,6 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
   const [desc, setDesc] = useState(true);
   const [showButton, setShowButton] = useState('Show More');
 
-  const descRef = useRef(null);
 
   useEffect(() => {
     const get_channel_details = async () => {
@@ -34,7 +33,7 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
     } else {
       setDesc(videoDetails?.snippet?.description);
     }
-  }, []);
+  }, [videoDetails]);
 
   const toggleShowButton = () => {
     if (showButton === 'Show More') {

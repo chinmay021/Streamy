@@ -31,10 +31,8 @@ const WatchPage = () => {
           `/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       );
       const data = await response.json();
-      console.log(data);
       setVideoDetails(data?.items?.[0]);
       setLoading(false);
-      console.log(videoDetails);
     };
     getVideoDetail();
   }, [videoId]);
@@ -73,8 +71,8 @@ const WatchPage = () => {
             commentCount={videoDetails?.statistics?.commentCount}
           />
         </div>
-        <div className='col2 col-span-12 lg:col-span-4 bg-green-400 outline'>
-          <VideoSuggestions />
+        <div className='col2 col-span-12 lg:col-span-4 '>
+          <VideoSuggestions videoId={videoId} />
         </div>
       </div>
     </div>

@@ -105,7 +105,7 @@ const VideoContainer = () => {
         if (index === videos.length - 1) {
           return (
             <div ref={lastVideoRef} key={video?.id?.videoId || video.id}>
-              <Link to={'/watch?v=' + video.id}>
+              <Link to={`/watch?v=${video?.id?.videoId || video.id}`}>
                 <VideoCard video={video} />
               </Link>
             </div>
@@ -113,7 +113,8 @@ const VideoContainer = () => {
         } else {
           return (
             <Link
-              to={'/watch?v=' + video.id}
+              className='w-full'
+              to={`/watch?v=${video?.id?.videoId || video.id}`}
               key={video?.id?.videoId || video.id}
             >
               <VideoCard video={video} />

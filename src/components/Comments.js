@@ -3,6 +3,7 @@ import { MdOutlineSort } from 'react-icons/md';
 import { BASE_URL } from '../utils/constants';
 import Comment from './Comment';
 import { FaUserCircle } from 'react-icons/fa';
+import loadingGif from '../assests/loading-state.gif';
 
 const Comments = ({ videoId, commentCount }) => {
   const [loading, setLoading] = useState(true);
@@ -16,20 +17,38 @@ const Comments = ({ videoId, commentCount }) => {
           `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY}&videoId=${videoId}&textFormat=plainText&pageToken=${nextPageToken}`
       );
       const data = await response.json();
-      setComments([...comments, ...data?.items]);
+      setComments(data?.items);
       setNextPageToken(data?.nextPageToken);
+      setLoading(false);
       console.log(data?.items);
     };
     getComments();
-    setLoading(false);
-  }, [videoId, pageCount]);
+  }, [videoId]);
+
+  useEffect(() => {
+    const getComments = async () => {
+      const response = await fetch(
+        BASE_URL +
+          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY}&videoId=${videoId}&textFormat=plainText&pageToken=${nextPageToken}`
+      );
+      const data = await response.json();
+      setComments([...comments, ...data?.items]);
+      setNextPageToken(data?.nextPageToken);
+      setLoading(false);
+      console.log(data?.items);
+    };
+    getComments();
+  }, [pageCount]);
 
   const handleLoadMoreComments = () => {
+    setLoading(true);
     setPageCount(pageCount + 1);
   };
 
   return comments.length === 0 ? (
-    <h1>Loading...</h1>
+    <div className='w-full'>
+      <img className='w-12 h-12 m-auto' src={loadingGif} alt='' />
+    </div>
   ) : (
     <div className='comment'>
       <div className='flex gap-8 items-center mb-4 '>
@@ -66,12 +85,19 @@ const Comments = ({ videoId, commentCount }) => {
           return <Comment key={comment.id} commentData={comment} />;
         })}
       </div>
-      <button
-        className='w-full font-bold bg-gray-200 rounded-3xl px-4 py-1'
-        onClick={handleLoadMoreComments}
-      >
-        Show More
-      </button>
+      {console.log('loading->', loading)}
+      {loading ? (
+        <div className='w-full'>
+          <img className='w-12 h-12 m-auto' src={loadingGif} alt='' />
+        </div>
+      ) : (
+        <button
+          className='w-full font-bold bg-gray-200 rounded-3xl px-4 py-1'
+          onClick={handleLoadMoreComments}
+        >
+          Show More
+        </button>
+      )}
     </div>
   );
 };
