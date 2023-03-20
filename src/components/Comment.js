@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { viewFun } from '../utils/helper';
+
 import { BiDislike, BiLike } from 'react-icons/bi';
 
 const Comment = ({ commentData }) => {
@@ -33,7 +33,7 @@ const Comment = ({ commentData }) => {
               <BiLike size='1.2rem' className='text-gray-600' />
             </div>
             <div className='like_count '>
-              {viewFun(commentData.snippet.topLevelComment.snippet.likeCount)}
+              {Intl.NumberFormat('en', {notation: "compact"}).format(commentData.snippet.topLevelComment.snippet.likeCount)}
             </div>
           </button>
           <button className='cursor-pointer flex gap-1 items-center hover:bg-zinc-200 p-2 rounded-full'>

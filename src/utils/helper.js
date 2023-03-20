@@ -37,13 +37,7 @@ export function handleScroll(className) {
   slider.addEventListener('touchmove', (e) => handleMouseMove(e));
 }
 
-export const viewFun = (view) => {
-  return view < 1000
-    ? view
-    : view > 1000 && view < 1000000
-    ? (view / 1000).toFixed(0) + 'K'
-    : (view / 1000000).toFixed(1) + 'M';
-};
+
 
 export const replaceURLs = (message) => {
   if (!message) return;

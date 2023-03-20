@@ -16,11 +16,13 @@ const Tags = () => {
   const dispatch = useDispatch();
 
   const handleSetHomeVideoByKeyword = (tag) => {
+    if (active !== tag) {
+      dispatch(changeCategory(tag));
+      dispatch(addVideos([]));
+      dispatch(addNextPageToken(undefined));
+      setActive(tag);
+    }
     // searchVideoByKeyword(tag);
-    dispatch(changeCategory(tag));
-    dispatch(addVideos([]));
-    dispatch(addNextPageToken(undefined));
-    setActive(tag);
   };
 
   useEffect(() => {
@@ -29,7 +31,9 @@ const Tags = () => {
   return (
     <div
       className={`tags mx-4 flex text-sm items-center ${
-        isMenuOpen ? 'w-[calc(100vw-18rem)]' : 'w-[calc(100vw-8rem)]'
+        isMenuOpen
+          ? 'lg:w-[calc(100vw-18rem)] w-[calc(100vw-8rem)]'
+          : 'lg:w-[calc(100vw-8rem)] w-[calc(100vw-3rem)]'
       } min-w-[250px]
       pt-2`}
       //relative top-0 left-0

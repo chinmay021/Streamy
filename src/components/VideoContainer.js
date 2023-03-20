@@ -18,22 +18,38 @@ const VideoContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   // const [data, setData] = useState([]);
 
+  let date = new Date();
+  date = encodeURIComponent(date.toJSON());
+  let publishedAfter = new Date(Date.now() - 150 * 24 * 60 * 60 * 1000);
+  publishedAfter = encodeURIComponent(publishedAfter.toJSON());
+
+  /* 
+  `/search?part=snippet&order=viewCount&publishedAfter=${publishedAfter}&publishedBefore=${date}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+
+  const response = await fetch(
+          BASE_URL +
+            `/search?part=snippet&order=viewCount&publishedAfter=${publishedAfter}&type=video&videoDuration=medium&publishedBefore=${date}&key=${
+              process.env.REACT_APP_GOOGLE_API_KEY
+            }&regionCode=IN&pageToken=${nextPageToken ?? ''}`
+        );
+
+
+  `/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=5&chart=mostPopular&regionCode=IN&pageToken=${nextPageToken ?? ""}&videoDuration=medium&key=` +
+            process.env.REACT_APP_GOOGLE_API_KEY
+ */
+
   useEffect(() => {
     const getVideos = async () => {
       try {
         // console.log(nextPageToken);
         const response = await fetch(
           BASE_URL +
-            `/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=5&chart=mostPopular&regionCode=IN${
-              nextPageToken ? `&pageToken=${nextPageToken}` : ''
+            `/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=5&chart=mostPopular&regionCode=IN&pageToken=${
+              nextPageToken ?? ''
             }&videoDuration=medium&key=` +
             process.env.REACT_APP_GOOGLE_API_KEY
         );
         const data = await response.json();
-        // console.log(data);
-        // setData(data);
-        // setNextPage(data?.nextPageToken);
-        // setVideos(data?.items);
         dispatch(addVideos([...videos, ...data?.items]));
         dispatch(addNextPageToken(data?.nextPageToken));
       } catch (error) {
@@ -47,16 +63,17 @@ const VideoContainer = () => {
   }, [pageCount, category]);
 
   useEffect(() => {
-    const searchVideoByKeyword = async (tag) => {
+    const searchVideoByKeyword = async (searchText) => {
       try {
         const response = await fetch(
           BASE_URL +
-            `/search?part=snippet&maxResults=5&type=video&q=${tag}${
-              nextPageToken ? `&pageToken=${nextPageToken}` : ''
+            `/search?part=snippet&maxResults=5&type=video&q=${searchText}&pageToken=${
+              nextPageToken ?? ''
             }&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
         );
         const data = await response.json();
         // console.log(data);
+
         dispatch(addVideos([...videos, ...data?.items]));
 
         dispatch(addNextPageToken(data?.nextPageToken));

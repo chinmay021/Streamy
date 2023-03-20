@@ -1,9 +1,8 @@
 import { decode } from 'html-entities';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { GiAerialSignal } from 'react-icons/gi';
 import { BASE_URL } from '../utils/constants';
-import { viewFun } from '../utils/helper';
+
 
 const SuggestedVideoCard = ({ video }) => {
   const {
@@ -13,7 +12,6 @@ const SuggestedVideoCard = ({ video }) => {
       title,
       thumbnails: { medium },
       channelTitle,
-      publishTime,
     },
   } = video;
 
@@ -58,7 +56,7 @@ const SuggestedVideoCard = ({ video }) => {
           <div className='small h-[50%]  '>
             <div className='channel-name text-xs xl:text-sm pt-2'>{channelTitle}</div>
             <div className='text-xs '>
-              <span>{viewFun(views)} views</span>
+              <span>{Intl.NumberFormat('en', {notation: "compact"}).format(views)} views</span>
               <span> • </span>
               <span>{moment(publishedAt).fromNow()}</span>
             </div>

@@ -47,7 +47,7 @@ const WatchPage = () => {
       >
         <div className='col1 col-span-12 lg:col-span-8  '>
           <div className='video mb-4 '>
-            <div className='player mb-4 h-[32vh] md:h-[50vh] lg:h-[60vh] xl:h-[70vh]'>
+            <div className='player mb-4 h-[32vh] md:h-[50vh] lg:h-[50vh] 2xl:h-[70vh]'>
               <iframe
                 width='100%'
                 height='100%'

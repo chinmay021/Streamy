@@ -4,7 +4,7 @@ import { BASE_URL } from './../utils/constants';
 import { useEffect } from 'react';
 import { GiAerialSignal } from 'react-icons/gi';
 import { decode } from 'html-entities';
-import { viewFun } from '../utils/helper';
+
 
 const VideoCard = ({ video }) => {
   const {
@@ -98,7 +98,7 @@ const VideoCard = ({ video }) => {
             </div>
             <div className='channel-name text-xs pt-2'>{channelTitle}</div>
             <div className='text-xs pt-1'>
-              <span>{viewFun(views)} views</span>
+              <span>{Intl.NumberFormat('en', {notation: "compact"}).format(views)} views</span>
               <span> • </span>
               <span>{moment(publishedAt).fromNow()}</span>
             </div>

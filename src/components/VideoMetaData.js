@@ -1,17 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/constants';
-import { stringToHTML, viewFun } from '../utils/helper';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { TfiShare, TfiDownload, TfiMoreAlt } from 'react-icons/tfi';
 import moment from 'moment';
-import { replaceURLs } from '../utils/helper';
 
 const VideoMetaData = ({ videoDetails, channelId }) => {
   const [channelDetails, setChannelDetails] = useState(null);
   //   console.log(videoDetails, channelId);
   const [desc, setDesc] = useState(true);
   const [showButton, setShowButton] = useState('Show More');
-
 
   useEffect(() => {
     const get_channel_details = async () => {
@@ -65,7 +62,7 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
                 {channelDetails?.snippet?.localized?.title}
               </div>
               <div className='sub_count text-xs'>
-                {viewFun(channelDetails?.statistics?.subscriberCount)}{' '}
+                {Intl.NumberFormat('en', {notation: "compact"}).format(channelDetails?.statistics?.subscriberCount)}{' '}
                 subscribers
               </div>
             </div>
@@ -84,7 +81,7 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
                   <BiLike size='1.2rem' className='text-gray-600' />
                 </div>
                 <div className='like_count '>
-                  {viewFun(videoDetails?.statistics?.likeCount)}
+                  {Intl.NumberFormat('en', {notation: "compact"}).format(videoDetails?.statistics?.likeCount)}
                 </div>
               </button>
               <button className='cursor-pointer'>
@@ -109,10 +106,13 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
         <div className='video_desc mt-4 text-sm p-4 bg-gray-100 rounded-xl'>
           <div className='view_date flex gap-4 font-bold pb-1'>
             <div className='video_views '>
-              {viewFun(videoDetails?.statistics?.viewCount)} views
+              {Intl.NumberFormat('en', { notation: 'compact' }).format(
+                videoDetails?.statistics?.viewCount
+              )}{' '}
+              views
             </div>
             <div className='published_date'>
-              {moment(videoDetails?.statistics?.publishedAt).fromNow()}
+              {moment(videoDetails?.snippet?.publishedAt).fromNow()}
             </div>
           </div>
           <div className='desc whitespace-pre-wrap break-words '>
