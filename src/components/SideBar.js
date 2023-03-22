@@ -27,7 +27,7 @@ import { SiYoutubemusic } from 'react-icons/si';
 import { TbMoodKid } from 'react-icons/tb';
 import { ImDisplay } from 'react-icons/im';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 import { Link } from 'react-router-dom';
@@ -49,6 +49,7 @@ const SideBar = () => {
       }
     };
     checkisMobile();
+    // eslint-disable-next-line
   }, []);
   const isMobile = () => {
     if (window.innerWidth <= 768) {

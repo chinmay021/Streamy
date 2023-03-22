@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import VideoCard from './VideoCard';
-import { YOUTUBE_MOST_POPULAR } from '../utils/constants';
 import Shimmer from './Shimmer';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -19,8 +18,10 @@ const VideoContainer = () => {
   // const [data, setData] = useState([]);
 
   let date = new Date();
+  // eslint-disable-next-line
   date = encodeURIComponent(date.toJSON());
   let publishedAfter = new Date(Date.now() - 150 * 24 * 60 * 60 * 1000);
+  // eslint-disable-next-line
   publishedAfter = encodeURIComponent(publishedAfter.toJSON());
 
   /* 
@@ -60,6 +61,7 @@ const VideoContainer = () => {
       getVideos();
       setIsLoading(false);
     }
+    // eslint-disable-next-line
   }, [pageCount, category]);
 
   useEffect(() => {
@@ -86,6 +88,7 @@ const VideoContainer = () => {
       searchVideoByKeyword(category);
       setIsLoading(false);
     }
+    // eslint-disable-next-line
   }, [category, pageCount]);
 
   const lastVideoRef = useRef();
@@ -109,6 +112,7 @@ const VideoContainer = () => {
     return () => {
       observer.disconnect();
     };
+    // eslint-disable-next-line
   }, [videos]);
 
   return videos.length === 0 ? (

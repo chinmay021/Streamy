@@ -21,6 +21,7 @@ const WatchPage = () => {
     if (isSideBarOpen) {
       dispatch(toggleSideBar());
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
