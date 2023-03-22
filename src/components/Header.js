@@ -7,7 +7,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import logo from '../assests/logo.png';
 import { toggleMenu, toggleSideBar } from '../utils/appSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {  useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useDebounce from '../utils/useDebounce';
 import { YOUTUBE_SEARCH_SUGGESTION_API_URL } from '../utils/constants';

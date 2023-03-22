@@ -27,7 +27,7 @@ import { SiYoutubemusic } from 'react-icons/si';
 import { TbMoodKid } from 'react-icons/tb';
 import { ImDisplay } from 'react-icons/im';
 import { useSelector } from 'react-redux';
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 import { Link } from 'react-router-dom';
@@ -75,7 +75,7 @@ const SideBar = () => {
 
   return isMenuOpen ? (
     !isMobile() ? (
-      <div className='sidebar__open border-r flex  flex-col w-[15rem]  h-[calc(100vh-4.625rem)] overflow-y-scroll overflow-x-hidden '>
+      <div className='sidebar__open border-r flex  flex-col w-[15rem]  h-[calc(100vh-4.625rem)] overflow-y-scroll min-w-fit'>
         <div className='first-part flex pl-2 pr-6  pb-4 flex-col text-sm w-[15rem] '>
           <Link to='/'>
             <div className='home px-4 flex py-2 items-center hover:bg-zinc-100 w-full rounded-lg  cursor-pointer'>
