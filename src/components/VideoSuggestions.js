@@ -21,14 +21,14 @@ const VideoSuggestions = ({ videoId }) => {
           `/search?part=snippet&relatedToVideoId=${videoId}&maxResults=25&type=video&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       );
       const data = await response.json();
-      console.log(data?.items);
+      // console.log(data?.items);
       setSuggestedVideos(data?.items);
     };
     getSuggestedVideos();
-    // setLoading(false);
+    setLoading(false);
   }, [videoId]);
 
-  return !loading ? (
+  return loading ? (
     <Shimmer />
   ) : (
     <div>

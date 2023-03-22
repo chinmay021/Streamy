@@ -18,7 +18,7 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
       );
       const data = await response.json();
       setChannelDetails(data?.items?.[0]);
-      console.log(channelDetails);
+      // console.log(channelDetails);
     };
     if (channelId) get_channel_details();
   }, [channelId]);

@@ -3,7 +3,7 @@ import VideoContainer from "./VideoContainer";
 import Tags from "./Tags";
 const MainContainer = () => {
   return (
-    <div className="border flex-1">
+    <div className=" flex-1">
       <Tags />
       <VideoContainer />
     </div>

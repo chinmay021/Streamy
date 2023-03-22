@@ -115,7 +115,7 @@ const VideoContainer = () => {
     <Shimmer />
   ) : (
     <div
-      className='border grid justify-center justify-items-center grid-cols-[repeat(auto-fill,minmax(310px,_1fr))] max-xl:grid-cols-[repeat(auto-fill,minmax(250px,_1fr))] gap-[2rem_1rem] 
+      className=' grid justify-center justify-items-center grid-cols-[repeat(auto-fill,minmax(310px,_1fr))] max-xl:grid-cols-[repeat(auto-fill,minmax(250px,_1fr))] gap-[2rem_1rem] 
      pt-6 px-8'
     >
       {videos.map((video, index) => {

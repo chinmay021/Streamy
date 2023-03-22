@@ -14,13 +14,13 @@ const Comments = ({ videoId, commentCount }) => {
     const getComments = async () => {
       const response = await fetch(
         BASE_URL +
-          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY}&videoId=${videoId}&textFormat=plainText&pageToken=${nextPageToken}`
+          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY}&videoId=${videoId}&textFormat=plainText`
       );
       const data = await response.json();
       setComments(data?.items);
       setNextPageToken(data?.nextPageToken);
       setLoading(false);
-      console.log(data?.items);
+      // console.log(data);
     };
     getComments();
   }, [videoId]);
@@ -35,9 +35,10 @@ const Comments = ({ videoId, commentCount }) => {
       setComments([...comments, ...data?.items]);
       setNextPageToken(data?.nextPageToken);
       setLoading(false);
-      console.log(data?.items);
+      // console.log(data);
     };
     getComments();
+    // eslint-disable-next-line
   }, [pageCount]);
 
   const handleLoadMoreComments = () => {
@@ -81,11 +82,10 @@ const Comments = ({ videoId, commentCount }) => {
         </div>
       </div>
       <div className='comments'>
-        {comments.map((comment) => {
-          return <Comment key={comment.id} commentData={comment} />;
-        })}
+        {comments.map((comment) => (
+          <Comment key={comment.id} commentData={comment} />
+        ))}
       </div>
-      {console.log('loading->', loading)}
       {loading ? (
         <div className='w-full'>
           <img className='w-12 h-12 m-auto' src={loadingGif} alt='' />

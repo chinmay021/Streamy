@@ -6,13 +6,14 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { FaUserCircle } from 'react-icons/fa';
 import logo from '../assests/logo.png';
 import { toggleMenu, toggleSideBar } from '../utils/appSlice';
-import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {  useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useDebounce from '../utils/useDebounce';
 import { YOUTUBE_SEARCH_SUGGESTION_API_URL } from '../utils/constants';
 import SuggestionDropDown from './SuggestionDropDown';
 import useClickOutside from './../utils/useClickOutside';
+import { cacheResults } from '../utils/searchSlice';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -32,32 +33,41 @@ const Header = () => {
     dispatch(toggleSideBar());
   };
 
+  const searchCache = useSelector((store) => store.search.suggestions);
+
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
     const getAutocompletion = async (searchText) => {
-      console.log(searchText);
+      // console.log('api call made for text -> ', searchText);
       const response = await fetch(
         YOUTUBE_SEARCH_SUGGESTION_API_URL + searchText,
         signal
       );
       const data = await response.json();
+      dispatch(cacheResults({ [searchText]: data[1] }));
       setSuggestions(data[1]);
       setLoading(false);
     };
 
     if (debounceSearchText.length > 2) {
-      getAutocompletion(debounceSearchText);
+      if (searchCache[debounceSearchText]) {
+        setSuggestions(searchCache[debounceSearchText]);
+        setLoading(false);
+      } else {
+        getAutocompletion(debounceSearchText);
+      }
     }
 
     return () => {
       controller.abort('cancel request');
     };
+    // eslint-disable-next-line
   }, [debounceSearchText]);
 
   return (
-    <div className='px-4 py-2 flex justify-between  border items-center shadow-sm  w-full sticky top-0 z-10 bg-white h-[4.62rem] outline'>
+    <div className='px-4 py-2 flex justify-between items-center shadow-sm  w-full sticky top-0 z-10 bg-white h-[4.62rem]'>
       <div className='left-items flex items-center'>
         <button className=' p-2 rounded-full hover:bg-zinc-200  '>
           <RxHamburgerMenu

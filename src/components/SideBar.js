@@ -74,7 +74,7 @@ const SideBar = () => {
 
   return isMenuOpen ? (
     !isMobile() ? (
-      <div className='sidebar__open border flex  flex-col w-[15rem]  h-[calc(100vh-4.625rem)] overflow-y-scroll overflow-x-scroll '>
+      <div className='sidebar__open border-r flex  flex-col w-[15rem]  h-[calc(100vh-4.625rem)] overflow-y-scroll overflow-x-hidden '>
         <div className='first-part flex pl-2 pr-6  pb-4 flex-col text-sm w-[15rem] '>
           <Link to='/'>
             <div className='home px-4 flex py-2 items-center hover:bg-zinc-100 w-full rounded-lg  cursor-pointer'>
@@ -237,7 +237,7 @@ const SideBar = () => {
         </div>
       </div>
     ) : (
-      <div className='sidebar__closed pr-1 flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)]'>
+      <div className='sidebar__closed pr-1 border-r flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)]'>
         <Link to='/' className=' w-full'>
           <div className='home py-4 flex flex-col items-center hover:bg-zinc-200 w-full rounded-md'>
             <MdHomeFilled size='1.5rem' className='mb-1' />
@@ -260,7 +260,7 @@ const SideBar = () => {
     )
   ) : (
     !isMobile() && (
-      <div className='sidebar__closed pr-1 flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)]'>
+      <div className='sidebar__closed pr-1 border-r  flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)]'>
         <Link to='/' className=' w-full'>
           <div className='home py-4 flex flex-col items-center hover:bg-zinc-200 w-full rounded-md'>
             <MdHomeFilled size='1.5rem' className='mb-1' />

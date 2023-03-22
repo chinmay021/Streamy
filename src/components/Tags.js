@@ -48,15 +48,15 @@ const Tags = () => {
       <div className='tags-wrapper flex w-full overflow-x-hidden overflow-y-hidden '>
         {tags.map((tag, index) => {
           return (
-            <div
-              className={`tag px-3 w-fit py-2 mx-2 border-none cursor-pointer rounded-lg bg-gray-100 ${
+            <button
+              className={`tag px-3 w-fit py-2 mx-2 cursor-pointer rounded-lg bg-gray-100 ${
                 active === tag ? 'bg-slate-900 text-white' : ''
               }`}
               key={index}
               onClick={() => handleSetHomeVideoByKeyword(tag)}
             >
               <span className='whitespace-nowrap'>{tag}</span>
-            </div>
+            </button>
           );
         })}
       </div>
