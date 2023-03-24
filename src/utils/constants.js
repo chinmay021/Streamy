@@ -3,7 +3,7 @@ export const tags = [
   'Music',
   'Cricket',
   'Namaste JavaScript',
-  'React',
+  'React js',
   'Redux',
   'Frontend Engineer',
   'Coding',
