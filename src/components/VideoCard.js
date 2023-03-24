@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import moment from 'moment';
-import { BASE_URL } from './../utils/constants';
-import { useEffect } from 'react';
-import { GiAerialSignal } from 'react-icons/gi';
-import { decode } from 'html-entities';
-
+import { useState } from "react";
+import moment from "moment";
+import { BASE_URL } from "./../utils/constants";
+import { useEffect } from "react";
+import { GiAerialSignal } from "react-icons/gi";
+import { decode } from "html-entities";
 
 const VideoCard = ({ video }) => {
   const {
@@ -27,7 +26,7 @@ const VideoCard = ({ video }) => {
   const [channelIcon, setChannelIcon] = useState(null);
 
   const seconds = duration && moment.duration(duration).asSeconds();
-  const _duration = duration && moment.utc(seconds * 1000).format('mm:ss');
+  const _duration = duration && moment.utc(seconds * 1000).format("mm:ss");
   // console.log(_duration);
 
   const _videoId = id?.videoId || contentDetails?.videoId || id;
@@ -36,7 +35,7 @@ const VideoCard = ({ video }) => {
     const getVideoViewsAndDuration = async () => {
       const response = await fetch(
         BASE_URL +
-          `/videos?part=contentDetails%2Cstatistics&id=${_videoId}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+          `/videos?part=contentDetails%2Cstatistics&id=${_videoId}&key=${process.env.REACT_APP_GOOGLE_API_KEY_3}`
       );
       const data = await response.json();
       // console.log(data);
@@ -56,7 +55,7 @@ const VideoCard = ({ video }) => {
     const get_channel_icon = async () => {
       const response = await fetch(
         BASE_URL +
-          `/channels?part=snippet&id=${channelId}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+          `/channels?part=snippet&id=${channelId}&key=${process.env.REACT_APP_GOOGLE_API_KEY_10}`
       );
       const data = await response.json();
       setChannelIcon(data?.items?.[0]?.snippet?.thumbnails?.default?.url);
@@ -65,17 +64,17 @@ const VideoCard = ({ video }) => {
   }, [channelId]);
 
   return (
-    <div className='video w-full cursor-pointer h-fit'>
-      <div className='video__thumbnail  relative'>
+    <div className="video w-full cursor-pointer h-fit">
+      <div className="video__thumbnail  relative">
         <img
           src={medium.url}
-          className='rounded-xl w-full'
-          alt='video thumbnail'
+          className="rounded-xl w-full"
+          alt="video thumbnail"
         />
-        <div className='absolute bottom-1 right-1 bg-black/80 px-2 py-1 rounded-md text-xs text-white'>
-          {_duration === '00:00' ? (
-            <div className='bg-red-600 px-2 rounded font-bold flex gap-1 items-center'>
-              <GiAerialSignal size='1.1rem' />
+        <div className="absolute bottom-1 right-1 bg-black/80 px-2 py-1 rounded-md text-xs text-white">
+          {_duration === "00:00" ? (
+            <div className="bg-red-600 px-2 rounded font-bold flex gap-1 items-center">
+              <GiAerialSignal size="1.1rem" />
               <span>LIVE</span>
             </div>
           ) : (
@@ -83,22 +82,25 @@ const VideoCard = ({ video }) => {
           )}
         </div>
       </div>
-      <div className='video__details pt-4'>
-        <div className='flex gap-2'>
-          <div className='channel-logo flex flex-shrink-0 '>
+      <div className="video__details pt-4">
+        <div className="flex gap-2">
+          <div className="channel-logo flex flex-shrink-0 ">
             <img
               src={channelIcon}
-              className='rounded-[50%]  w-10 h-10  object-cover'
-              alt='channel logo'
+              className="rounded-[50%]  w-10 h-10  object-cover"
+              alt="channel logo"
             />
           </div>
-          <div className='video-detail'>
-            <div className='video-title font-semibold text-base leading-snug '>
-              {newTitle.length > 60 ? newTitle.slice(0, 60) + '...' : newTitle}
+          <div className="video-detail">
+            <div className="video-title font-semibold text-base leading-snug ">
+              {newTitle.length > 60 ? newTitle.slice(0, 60) + "..." : newTitle}
             </div>
-            <div className='channel-name text-xs pt-2'>{channelTitle}</div>
-            <div className='text-xs pt-1'>
-              <span>{Intl.NumberFormat('en', {notation: "compact"}).format(views)} views</span>
+            <div className="channel-name text-xs pt-2">{channelTitle}</div>
+            <div className="text-xs pt-1">
+              <span>
+                {Intl.NumberFormat("en", { notation: "compact" }).format(views)}{" "}
+                views
+              </span>
               <span> • </span>
               <span>{moment(publishedAt).fromNow()}</span>
             </div>

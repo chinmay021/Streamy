@@ -14,7 +14,7 @@ const Comments = ({ videoId, commentCount }) => {
     const getComments = async () => {
       const response = await fetch(
         BASE_URL +
-          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY}&videoId=${videoId}&textFormat=plainText`
+          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY_1}&videoId=${videoId}&textFormat=plainText`
       );
       const data = await response.json();
       setComments(data?.items);

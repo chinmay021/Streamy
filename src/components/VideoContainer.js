@@ -48,7 +48,7 @@ const VideoContainer = () => {
             `/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=5&chart=mostPopular&regionCode=IN&pageToken=${
               nextPageToken ?? ''
             }&videoDuration=medium&key=` +
-            process.env.REACT_APP_GOOGLE_API_KEY
+            process.env.REACT_APP_GOOGLE_API_KEY_4
         );
         const data = await response.json();
         dispatch(addVideos([...videos, ...data?.items]));
@@ -71,7 +71,7 @@ const VideoContainer = () => {
           BASE_URL +
             `/search?part=snippet&maxResults=5&type=video&q=${searchText}&pageToken=${
               nextPageToken ?? ''
-            }&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+            }&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY_10}`
         );
         const data = await response.json();
         // console.log(data);

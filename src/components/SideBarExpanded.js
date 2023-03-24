@@ -28,7 +28,7 @@ import ShortsLogo from '../assests/YouTube-Shorts-Black.svg';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import logo from '../assests/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleMenu, toggleSideBar } from '../utils/appSlice';
+import { toggleSideBar } from '../utils/appSlice';
 import { Link } from 'react-router-dom';
 
 const SideBarExpanded = () => {

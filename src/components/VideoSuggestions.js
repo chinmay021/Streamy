@@ -18,7 +18,7 @@ const VideoSuggestions = ({ videoId }) => {
     const getSuggestedVideos = async () => {
       const response = await fetch(
         BASE_URL +
-          `/search?part=snippet&relatedToVideoId=${videoId}&maxResults=25&type=video&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+          `/search?part=snippet&relatedToVideoId=${videoId}&maxResults=25&type=video&key=${process.env.REACT_APP_GOOGLE_API_KEY_8}`
       );
       const data = await response.json();
       // console.log(data?.items);

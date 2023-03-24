@@ -27,7 +27,7 @@ const SuggestedVideoCard = ({ video }) => {
     const getVideoViewsAndDuration = async () => {
       const response = await fetch(
         BASE_URL +
-          `/videos?part=contentDetails%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+          `/videos?part=contentDetails%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_GOOGLE_API_KEY_2}`
       );
       const data = await response.json();
       setDuration(data?.items?.[0]?.contentDetails?.duration);
