@@ -39,7 +39,7 @@ const Comments = ({ videoId, commentCount }) => {
     };
     if (nextPageToken) getComments();
     // eslint-disable-next-line
-  }, [pageCount]);
+  }, [pageCount, ]);
 
   const handleLoadMoreComments = () => {
     setLoading(true);

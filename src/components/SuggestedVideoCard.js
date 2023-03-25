@@ -34,7 +34,7 @@ const SuggestedVideoCard = ({ video }) => {
       setViews(data?.items[0].statistics.viewCount);
     };
     getVideoViewsAndDuration();
-  }, []);
+  }, [videoId]);
 
   return (
     <div className='video flex  gap-2 md:gap-4  lg:gap-2 xl:gap-4 cursor-pointer mb-4 '>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { BASE_URL } from '../utils/constants';
-import Shimmer from './Shimmer';
-import SuggestedVideoCard from './SuggestedVideoCard';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
+import Shimmer from "./Shimmer";
+import SuggestedVideoCard from "./SuggestedVideoCard";
 
 /* GET https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=Ks-_Mh1QhMc&type=video&key=[YOUR_API_KEY] HTTP/1.1
 
@@ -35,7 +35,10 @@ const VideoSuggestions = ({ videoId }) => {
       {suggestedVideos.length > 0 &&
         suggestedVideos.map((suggestedVideo) => {
           return (
-            <Link to={`/watch?v=${suggestedVideo?.id?.videoId}`} key={suggestedVideo?.id?.videoId}>
+            <Link
+              to={`/watch?v=${suggestedVideo?.id?.videoId}`}
+              key={suggestedVideo?.id?.videoId}
+            >
               <SuggestedVideoCard video={suggestedVideo} />
             </Link>
           );

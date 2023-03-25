@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet} from 'react-router-dom';
 import './App.css';
 import Body from './components/Body';
 import Header from './components/Header';

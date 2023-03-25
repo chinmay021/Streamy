@@ -19,7 +19,7 @@ const useClickOutside = (handler) => {
     return () => {
       document.body.removeEventListener("click", handleToggle);
     };
-  }, []);
+  }, [handler]);
   return domNode;
 };
 
