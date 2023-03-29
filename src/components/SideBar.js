@@ -31,11 +31,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 import { Link } from 'react-router-dom';
-/* 
-  make two parts :
-    one part shows when toggle is true 
-    other part shows when toggle is flase
-*/
+
 const SideBar = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 

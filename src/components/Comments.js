@@ -1,52 +1,43 @@
-import React, { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { BASE_URL } from "../utils/constants";
 import Comment from "./Comment";
 import { FaUserCircle } from "react-icons/fa";
 import loadingGif from "../assests/loading-state.gif";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const Comments = ({ videoId, commentCount }) => {
-  const [loading, setLoading] = useState(true);
-  const [nextPageToken, setNextPageToken] = useState("");
-  const [pageCount, setPageCount] = useState(1);
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    const getComments = async () => {
-      const response = await fetch(
-        BASE_URL +
-          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY_1}&videoId=${videoId}&textFormat=plainText`
-      );
-      const data = await response.json();
-      setComments(data?.items);
-      setNextPageToken(data?.nextPageToken);
-      setLoading(false);
-      // console.log(data);
-    };
-    getComments();
-  }, [videoId]);
 
-  useEffect(() => {
-    const getComments = async () => {
-      const response = await fetch(
-        BASE_URL +
-          `/commentThreads?part=snippet%2Creplies&order=relevance&key=${process.env.REACT_APP_GOOGLE_API_KEY_1}&videoId=${videoId}&textFormat=plainText&pageToken=${nextPageToken}`
-      );
-      const data = await response.json();
-      setComments([...comments, ...data?.items]);
-      setNextPageToken(data?.nextPageToken);
-      setLoading(false);
-      // console.log(data);
-    };
-    if (nextPageToken) getComments();
-    // eslint-disable-next-line
-  }, [pageCount, ]);
 
-  const handleLoadMoreComments = () => {
-    setLoading(true);
-    setPageCount(pageCount + 1);
+  const getComments = async (nextPageToken = "") => {
+    const response = await fetch(
+      BASE_URL +
+        `/commentThreads?part=snippet%2Creplies&order=relevance&key=${
+          process.env.REACT_APP_GOOGLE_API_KEY_1
+        }&videoId=${videoId}&textFormat=plainText&pageToken=${
+          nextPageToken ?? ""
+        }`
+    );
+    const data = await response.json();
+    return data;
   };
 
-  return comments.length === 0 ? (
+  const { data, isLoading, fetchNextPage, isSuccess, isFetchingNextPage  } =
+    useInfiniteQuery({
+      queryKey: ["watch-page", "comments", videoId],
+      queryFn: ({ pageParam = null }) => getComments(pageParam),
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.nextPageToken;
+      },
+      refetchOnWindowFocus: false,
+      refetchOnmount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    });
+  const comments = data?.pages?.flatMap((page) => page.items) ?? [];
+
+  return isLoading ? (
     <div className="w-full">
       <img className="w-12 h-12 m-auto" src={loadingGif} alt="" />
     </div>
@@ -82,18 +73,18 @@ const Comments = ({ videoId, commentCount }) => {
         </div>
       </div>
       <div className="comments">
-        {comments.map((comment) => (
+        {isSuccess && comments.map((comment) => (
           <Comment key={comment.id} commentData={comment} />
         ))}
       </div>
-      {loading ? (
+      {isLoading || isFetchingNextPage  ? (
         <div className="w-full">
           <img className="w-12 h-12 m-auto" src={loadingGif} alt="" />
         </div>
       ) : (
-        <button
+         <button
           className="w-full font-bold bg-gray-200 rounded-3xl px-4 py-1"
-          onClick={handleLoadMoreComments}
+          onClick={fetchNextPage}
         >
           Show More
         </button>

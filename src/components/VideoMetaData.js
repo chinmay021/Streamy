@@ -3,25 +3,32 @@ import { BASE_URL } from "../utils/constants";
 import { BiLike, BiDislike } from "react-icons/bi";
 import { TfiShare, TfiDownload, TfiMoreAlt } from "react-icons/tfi";
 import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
 
 const VideoMetaData = ({ videoDetails, channelId }) => {
-  const [channelDetails, setChannelDetails] = useState(null);
-  //   console.log(videoDetails, channelId);
   const [desc, setDesc] = useState(true);
   const [showButton, setShowButton] = useState("Show More");
 
-  useEffect(() => {
-    const get_channel_details = async () => {
-      const response = await fetch(
-        BASE_URL +
-          `/channels?part=snippet%2Cstatistics%2CcontentDetails&id=${channelId}&key=${process.env.REACT_APP_GOOGLE_API_KEY_6}`
-      );
-      const data = await response.json();
-      setChannelDetails(data?.items?.[0]);
-      // console.log(channelDetails);
-    };
-    if (channelId) get_channel_details();
-  }, [channelId]);
+  const get_channel_details = async () => {
+    const response = await fetch(
+      BASE_URL +
+        `/channels?part=snippet%2Cstatistics%2CcontentDetails&id=${channelId}&key=${process.env.REACT_APP_GOOGLE_API_KEY_6}`
+    );
+    const data = await response.json();
+    return data.items[0];
+  };
+
+  const { data: channelDetails } = useQuery({
+    queryKey: ["watch-page", "channel-details", channelId],
+    queryFn: () => get_channel_details(channelId),
+    refetchOnWindowFocus: false,
+    refetchOnmount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: 1000 * 60 * 60 * 24,
+    cacheTime: 1000 * 60 * 60 * 24,
+    enabled: !!channelId,
+  });
 
   useEffect(() => {
     //set description

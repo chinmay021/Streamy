@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import appSlice from './appSlice';
 import searchSlice from './searchSlice';
-import videoSlice from './videoSlice';
+import categorySlice from './categorySlice';
 
 const store = configureStore({
   reducer: {
     //name of Slice : slice
     app: appSlice,
-    HomeVideos: videoSlice,
+    videosCategory: categorySlice,
     search: searchSlice,
   },
 });

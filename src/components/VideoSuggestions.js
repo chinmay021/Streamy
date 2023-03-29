@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import SuggestedVideoCard from "./SuggestedVideoCard";
 
-/* GET https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=Ks-_Mh1QhMc&type=video&key=[YOUR_API_KEY] HTTP/1.1
 
-Authorization: Bearer [YOUR_ACCESS_TOKEN]
-Accept: application/json
- */
 
 const VideoSuggestions = ({ videoId }) => {
-  const [loading, setLoading] = useState(true);
-  const [suggestedVideos, setSuggestedVideos] = useState([]);
+  const getSuggestedVideos = async () => {
+    const response = await fetch(
+      BASE_URL +
+        `/search?part=snippet&relatedToVideoId=${videoId}&maxResults=15&type=video&key=${process.env.REACT_APP_GOOGLE_API_KEY_8}`
+    );
+    const data = await response.json();
+    return data.items;
+  };
 
-  useEffect(() => {
-    const getSuggestedVideos = async () => {
-      const response = await fetch(
-        BASE_URL +
-          `/search?part=snippet&relatedToVideoId=${videoId}&maxResults=15&type=video&key=${process.env.REACT_APP_GOOGLE_API_KEY_8}`
-      );
-      const data = await response.json();
-      // console.log(data?.items);
-      setSuggestedVideos(data?.items);
-    };
-    getSuggestedVideos();
-    setLoading(false);
-  }, [videoId]);
+  const {data: suggestedVideos, isLoading} = useQuery({
+    queryKey: ["watch-page", "video-suggestions",videoId],
+    queryFn: () => getSuggestedVideos(videoId),
+    refetchOnWindowFocus: false,
+    refetchOnmount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: 1000 * 60 * 60 * 24,
+    cacheTime: 1000 * 60 * 60 * 24,
+  })
 
-  return loading ? (
+  return isLoading ? (
     <Shimmer />
   ) : (
     <div>

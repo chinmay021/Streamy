@@ -2,10 +2,8 @@ import React from 'react';
 import { TfiSearch } from 'react-icons/tfi';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addNextPageToken,
-  addVideos,
   changeCategory,
-} from '../utils/videoSlice';
+} from '../utils/categorySlice';
 
 const SuggestionDropDown = ({
   suggestions,
@@ -15,12 +13,10 @@ const SuggestionDropDown = ({
 }) => {
   const dispatch = useDispatch();
 
-  const category = useSelector((store) => store.HomeVideos.category);
+  const category = useSelector((store) => store.videosCategory.category);
   const handleSetHomeVideoByKeyword = (searchText) => {
     if (category !== searchText) {
       dispatch(changeCategory(searchText));
-      dispatch(addVideos([]));
-      dispatch(addNextPageToken(undefined));
     }
     setLoading(true);
     setSuggestions([]);

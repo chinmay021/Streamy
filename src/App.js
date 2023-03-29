@@ -1,12 +1,15 @@
-import { Provider } from 'react-redux';
-import { createBrowserRouter, Outlet} from 'react-router-dom';
-import './App.css';
-import Body from './components/Body';
-import Header from './components/Header';
-import MainContainer from './components/MainContainer';
-import Search from './components/Search';
-import WatchPage from './components/WatchPage';
-import store from './utils/store';
+import { Provider } from "react-redux";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import "./App.css";
+import Body from "./components/Body";
+import Header from "./components/Header";
+import MainContainer from "./components/MainContainer";
+import Search from "./components/Search";
+import WatchPage from "./components/WatchPage";
+import store from "./utils/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 
 /* 
   Header
@@ -20,28 +23,30 @@ import store from './utils/store';
 
 
 */
+export const queryClient = new QueryClient();
+
 export const appRouter = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
-    errorElement:<div>notfound</div>,
+    errorElement: <div>notfound</div>,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Body />,
         children: [
           {
-            path: '/',
+            path: "/",
             element: <MainContainer />,
           },
           {
-            path: 'results',
+            path: "results",
             element: <Search />,
           },
         ],
       },
       {
-        path: 'watch',
+        path: "watch",
         element: <WatchPage />,
       },
     ],
@@ -50,12 +55,15 @@ export const appRouter = createBrowserRouter([
 
 function App() {
   return (
-    <Provider store={store}>
-      <div className='font-Roboto'>
-        <Header />
-        <Outlet />
-      </div>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <div className="font-Roboto">
+          <Header />
+          <Outlet />
+        </div>
+        <ReactQueryDevtools initialIsOpen />
+      </Provider>
+    </QueryClientProvider>
   );
 }
 

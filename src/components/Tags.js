@@ -4,10 +4,8 @@ import { useEffect, useState } from 'react';
 import { handleScroll } from '../utils/helper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  addNextPageToken,
-  addVideos,
   changeCategory,
-} from '../utils/videoSlice';
+} from '../utils/categorySlice';
 
 const Tags = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
@@ -18,11 +16,8 @@ const Tags = () => {
   const handleSetHomeVideoByKeyword = (tag) => {
     if (active !== tag) {
       dispatch(changeCategory(tag));
-      dispatch(addVideos([]));
-      dispatch(addNextPageToken(undefined));
       setActive(tag);
     }
-    // searchVideoByKeyword(tag);
   };
 
   useEffect(() => {
