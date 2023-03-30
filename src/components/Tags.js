@@ -27,7 +27,7 @@ const Tags = () => {
     <div
       className={`tags mx-4 flex text-sm items-center ${
         isMenuOpen
-          ? 'lg:w-[calc(100vw-18rem)] w-[calc(100vw-8rem)]'
+          ? 'lg:w-[calc(100vw-19rem)] w-[calc(100vw-8rem)]'
           : 'lg:w-[calc(100vw-8rem)] w-[calc(100vw-3rem)]'
       } min-w-[250px]
       pt-2`}
@@ -44,8 +44,8 @@ const Tags = () => {
         {tags.map((tag, index) => {
           return (
             <button
-              className={`tag px-3 w-fit py-2 mx-2 cursor-pointer rounded-lg bg-gray-100 ${
-                active === tag ? 'bg-slate-900 text-white' : ''
+              className={`tag  px-3 w-fit py-2 mx-2 cursor-pointer rounded-lg bg-gray-100  dark:text-white dark:bg-zinc-600 ${
+                active === tag ? 'bg-slate-900 text-white dark:bg-slate-50 dark:text-black' : ''
               }`}
               key={index}
               onClick={() => handleSetHomeVideoByKeyword(tag)}

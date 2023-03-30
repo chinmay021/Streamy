@@ -43,7 +43,7 @@ const Comment = ({ commentData }) => {
           <div className='like_dislike flex gap-4 pt-2'>
             <button className='like  cursor-pointer flex gap-1 items-center  '>
               <div className='like_icon hover:bg-zinc-200 p-2 rounded-full'>
-                <BiLike size='1.2rem' className='text-gray-600' />
+                <BiLike size='1.2rem' className='text-gray-600 dark:text-white' />
               </div>
               <div className='like_count '>
                 {Intl.NumberFormat('en', { notation: 'compact' }).format(
@@ -54,10 +54,10 @@ const Comment = ({ commentData }) => {
             </button>
             <button className='cursor-pointer flex gap-1 items-center hover:bg-zinc-200 p-2 rounded-full'>
               <div className=''>
-                <BiDislike size='1.2rem' className='text-gray-600' />
+                <BiDislike size='1.2rem' className='text-gray-600 dark:text-white' />
               </div>
             </button>
-            <span className='font-semibold cursor-pointer text-xs hover:bg-zinc-200 py-2 px-4 rounded-2xl'>
+            <span className='font-semibold cursor-pointer text-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 py-2 px-4 rounded-2xl'>
               Reply
             </span>
           </div>
@@ -67,7 +67,7 @@ const Comment = ({ commentData }) => {
         {commentData?.replies && (
           <div className=' ml-4 pl-10'>
             <div
-              className='reply_toggle cursor-pointer text-blue-700 flex font-bold text-sm items-center mb-2'
+              className='reply_toggle cursor-pointer text-blue-700 dark:text-blue-300 flex font-bold text-sm items-center mb-2'
               onClick={() => setShowReplies(!showReplies)}
             >
               {showReplies ? (

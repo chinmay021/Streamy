@@ -109,7 +109,7 @@ const VideoCard = ({ video }) => {
           )}
         </div>
       </div>
-      <div className="video__details pt-4">
+      <div className="video__details pt-4 dark:text-white">
         <div className="flex gap-2">
           <div className="channel-logo flex flex-shrink-0 ">
             <img

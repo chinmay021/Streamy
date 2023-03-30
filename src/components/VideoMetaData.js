@@ -76,7 +76,7 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
               </div>
             </div>
             <div className="subs_button ml-2">
-              <button className="bg-black  text-sm text-white rounded-2xl px-4 py-2 ">
+              <button className="bg-black dark:bg-zinc-700  text-sm text-white rounded-2xl px-4 py-2 ">
                 {" "}
                 Subscribe
               </button>
@@ -84,10 +84,10 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
           </div>
 
           <div className="video_stats flex items-center flex-wrap gap-2 text-sm">
-            <div className="button-wrapper flex bg-gray-200 rounded-2xl p-2">
+            <div className="button-wrapper flex bg-gray-200 dark:bg-zinc-700 rounded-2xl p-2">
               <button className="like   flex gap-1 items-center pr-2">
                 <div className="like_icon">
-                  <BiLike size="1.2rem" className="text-gray-600" />
+                  <BiLike size="1.2rem" className="text-gray-600 dark:text-white " />
                 </div>
                 <div className="like_count ">
                   {Intl.NumberFormat("en", { notation: "compact" }).format(
@@ -96,25 +96,25 @@ const VideoMetaData = ({ videoDetails, channelId }) => {
                 </div>
               </button>
               <button className="cursor-pointer">
-                <div className="border-l-2 border-black/20 pl-2">
-                  <BiDislike size="1.2rem" className="text-gray-600" />
+                <div className="border-l-2 border-black/20 dark:border-white/50 pl-2">
+                  <BiDislike size="1.2rem" className="text-gray-600 dark:text-white" />
                 </div>
               </button>
             </div>
-            <button className="share flex items-center gap-2 bg-gray-200 rounded-2xl p-2">
+            <button className="share flex items-center gap-2 bg-gray-200 dark:bg-zinc-700 rounded-2xl p-2">
               <TfiShare />
               <span>Share</span>
             </button>
-            <button className="download flex items-center justify-center gap-2 bg-gray-200 rounded-2xl p-2">
+            <button className="download flex items-center justify-center gap-2 bg-gray-200 dark:bg-zinc-700  rounded-2xl p-2">
               <TfiDownload />
               <span>Download</span>
             </button>
-            <button className="more flex items-center gap-2 bg-gray-200 rounded-2xl p-2 ">
+            <button className="more flex items-center gap-2 bg-gray-200 rounded-2xl p-2 dark:bg-zinc-700  ">
               <TfiMoreAlt />
             </button>
           </div>
         </div>
-        <div className="video_desc mt-4 text-sm p-4 bg-gray-100 rounded-xl">
+        <div className="video_desc mt-4 text-sm p-4 bg-gray-100 dark:bg-zinc-700 rounded-xl">
           <div className="view_date flex gap-4 font-bold pb-1">
             <div className="video_views ">
               {Intl.NumberFormat("en", { notation: "compact" }).format(

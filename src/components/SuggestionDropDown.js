@@ -23,12 +23,12 @@ const SuggestionDropDown = ({
     setSearchQuery('');
   };
   return (
-    <div className='suggestionDropdown  absolute top-14 left-10 bg-white shadow-lg w-[calc(100%-37px)] lg:w-[calc(100%-100px)] h-fit rounded-xl'>
+    <div className='suggestionDropdown  absolute top-14 left-10 bg-white shadow-lg w-[calc(100%-37px)] lg:w-[calc(100%-100px)] h-fit rounded-xl dark:text-white dark:bg-zinc-800'>
       {suggestions.map((suggestion, index) => {
         return (
           <div
             key={index}
-            className='flex gap-2 cursor-pointer pl-4 py-1 items-center hover:bg-zinc-100 '
+            className='flex gap-2 cursor-pointer pl-4 py-1 items-center hover:bg-zinc-100 dark:hover:bg-zinc-700 '
             onClick={() => handleSetHomeVideoByKeyword(suggestion)}
           >
             <TfiSearch size='1.1rem' className='flex-none' />

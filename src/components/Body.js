@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 
 const Body = () => {
   return (
-    <div className='flex '>
+    <div className='flex bg-white dark:bg-zinc-800 transition-all duration-500 '>
       <SideBar />
       <Outlet />
     </div>

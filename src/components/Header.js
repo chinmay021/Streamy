@@ -1,27 +1,46 @@
-import { RxHamburgerMenu } from 'react-icons/rx';
-import { TfiSearch } from 'react-icons/tfi';
-import { MdKeyboardVoice } from 'react-icons/md';
-import { RiVideoAddLine } from 'react-icons/ri';
-import { IoMdNotificationsOutline } from 'react-icons/io';
-import { FaUserCircle } from 'react-icons/fa';
-import logo from '../assests/logo.png';
-import { toggleMenu, toggleSideBar } from '../utils/appSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import useDebounce from '../utils/useDebounce';
-import { YOUTUBE_SEARCH_SUGGESTION_API_URL } from '../utils/constants';
-import SuggestionDropDown from './SuggestionDropDown';
-import useClickOutside from './../utils/useClickOutside';
-import { cacheResults } from '../utils/searchSlice';
+import { RxHamburgerMenu } from "react-icons/rx";
+import { TfiSearch } from "react-icons/tfi";
+import { MdKeyboardVoice } from "react-icons/md";
+import { RiVideoAddLine } from "react-icons/ri";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { FaUserCircle } from "react-icons/fa";
+import logo_light_theme from "../assests/logo_light_theme.webp";
+import logo_dark_theme from "../assests/logo_dark_theme.webp";
+import { toggleMenu, toggleSideBar } from "../utils/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useContext, useEffect, useState, useRef } from "react";
+import useDebounce from "../utils/useDebounce";
+import { YOUTUBE_SEARCH_SUGGESTION_API_URL } from "../utils/constants";
+import SuggestionDropDown from "./SuggestionDropDown";
+import useClickOutside from "./../utils/useClickOutside";
+import { cacheResults } from "../utils/searchSlice";
+import ThemeContext from "../utils/ThemeContext";
+import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+import { useVoice } from "../utils/useVoice";
+import VoiceSearch from './VoiceSearch';
+import {IoMicCircle} from "react-icons/io5"
+import mic_open from "../assests/mic_open.gif"
 
 const Header = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const debounceSearchText = useDebounce(searchQuery, 200);
   const [loading, setLoading] = useState(true);
   const [suggestions, setSuggestions] = useState([]);
-  const inputRef = useClickOutside(() => setLoading(true));
+  const searchRef = useClickOutside(() => setLoading(true));
+  const inputRef = useRef();
 
+  const { text, isListening,listen, voiceSupported } = useVoice();
+
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  const handleThemeChange = () => {
+    const isCurrentDark = theme === "dark";
+    setTheme(isCurrentDark ? "light" : "dark");
+    localStorage.setItem("theme", isCurrentDark ? "light" : "dark");
+  };
+
+  const searchCache = useSelector((store) => store.search.suggestions);
   const dispatch = useDispatch();
 
   const route = useLocation();
@@ -33,7 +52,16 @@ const Header = () => {
     dispatch(toggleSideBar());
   };
 
-  const searchCache = useSelector((store) => store.search.suggestions);
+  const handleVoiceSearch = () => {
+    listen();
+    console.log("Voice Search");
+  };
+
+  useEffect(() => {
+     console.log("text -> ", {text});
+      setSearchQuery(text);
+  }, [text])
+  
 
   useEffect(() => {
     const controller = new AbortController();
@@ -61,40 +89,50 @@ const Header = () => {
     }
 
     return () => {
-      controller.abort('cancel request');
+      controller.abort("cancel request");
     };
     // eslint-disable-next-line
   }, [debounceSearchText]);
 
   return (
-    <div className='px-4 py-2 flex justify-between items-center shadow-sm  w-full sticky top-0 z-10 bg-white h-[4.62rem]'>
-      <div className='left-items flex items-center'>
-        <button className=' p-2 rounded-full hover:bg-zinc-200  '>
+    <div className="px-4 py-2 flex justify-between items-center shadow-sm  w-full sticky top-0 z-10 bg-white h-[4.62rem] dark:bg-zinc-900 dark:text-white transition-all duration-500">
+      <div className="left-items flex items-center">
+        <button
+          className=" p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700"
+          onClick={
+            route.pathname === "/watch"
+              ? toggleSideBarHandler
+              : toggleMenuHandler
+          }
+        >
           <RxHamburgerMenu
-            size='1.5rem'
-            title='hambergur menu'
-            className='cursor-pointer'
-            onClick={
-              route.pathname === '/watch'
-                ? toggleSideBarHandler
-                : toggleMenuHandler
-            }
+            size="1.5rem"
+            title="hambergur menu"
+            className="cursor-pointer"
           />
         </button>
-        <div className='logo cursor-pointer flex items-center max-md:hidden'>
-          <a href='/'>
-            <img src={logo} alt='logo' title='logo' className='w-36' />
+        <div className="logo cursor-pointer flex items-center max-md:hidden">
+          <a href="/">
+            <img
+              src={theme === "light" ? logo_light_theme : logo_dark_theme}
+              alt="logo"
+              title="logo"
+              className="w-52 pl-4 lg:w-36"
+            />
           </a>
         </div>
       </div>
-      <div className='center w-3/5 2xl:w-2/5 max-sm:w-4/5 max-sm:ml-2 max-sm:mr-4 flex items-center ml-16 relative '>
-        <div className='searchbar  flex-1 flex items-center ml-10 rounded-3xl border-2'>
+      <div className="center w-3/5 2xl:w-2/5 max-sm:w-4/5 max-sm:ml-2 max-sm:mr-4 flex items-center ml-16 relative ">
+        <div
+          ref={searchRef}
+          className="searchbar  dark:bg-zinc-800 flex-1 flex items-center ml-10 rounded-3xl border-2 dark:border dark:border-gray-500"
+        >
           <input
             ref={inputRef}
-            type='text'
-            placeholder='Search'
+            type="text"
+            placeholder="Search"
             value={searchQuery}
-            className=' rounded-l-3xl p-2 pl-8 focus:outline-none w-full'
+            className=" rounded-l-3xl p-2 pl-8 focus:outline-none w-full dark:bg-zinc-800"
             onChange={(e) => {
               setSearchQuery(e.target.value);
               setLoading(true);
@@ -102,17 +140,25 @@ const Header = () => {
             onFocus={(e) => {
               setLoading(false);
             }}
-            // onBlur={(e) => {
-            //   setLoading(true);
-            // }}
           />
-          <div className='p-3 cursor-pointer hover:bg-zinc-200 px-8 rounded-r-3xl bg-zinc-100 border-l-2 border-zinc-200 max-md:bg-white max-md:border-none max-md:px-4 max-lg:px-4'>
-            <TfiSearch size='1.2rem' className='' />
+          <div
+            className="p-3 cursor-pointer hover:bg-zinc-200 px-8 rounded-r-3xl bg-zinc-100 border-l-2 border-zinc-200 max-md:bg-white max-md:border-none max-md:px-4 max-lg:px-4 dark:bg-zinc-800 dark:border-l dark:border-gray-500 "
+            onClick={() => {
+              setSearchQuery(inputRef.current.value);
+              setLoading(false);
+            }}
+          >
+            <TfiSearch size="1.2rem" className="" />
           </div>
         </div>
-        <div className='voice-icon max-lg:hidden ml-4 p-2 hover:bg-zinc-200 rounded-full cursor-pointer'>
-          <MdKeyboardVoice size='1.5rem' />
+        <div
+          className="voice-icon max-lg:hidden ml-4 p-2 hover:bg-zinc-200 rounded-full cursor-pointer dark:text-white dark:hover:bg-zinc-700"
+          onClick={handleVoiceSearch}
+        >
+         {isListening ? <img  src={mic_open} width="30px" alt="mic open" /> : 
+          <MdKeyboardVoice size="1.5rem" />}
         </div>
+        {/* {isListening && <VoiceSearch text={text}/>} */}
         {!loading && (
           <SuggestionDropDown
             suggestions={suggestions}
@@ -122,15 +168,34 @@ const Header = () => {
           />
         )}
       </div>
-      <div className='right-menu max-sm:hidden flex  items-center ml-16 gap-5 p-2'>
-        <div className='p-2 hover:bg-zinc-200 rounded-full cursor-pointer'>
-          <RiVideoAddLine size='1.5rem' />
+      <div className="right-menu flex  items-center sm:ml-4 lg:ml-16 gap-5 p-2">
+        <div className="toggle-dark-mode-switch  flex items-center gap-2">
+          <label
+            htmlFor="check"
+            className="bg-gray-100 dark:bg-zinc-700 relative top-0 w-20 h-8 rounded-full cursor-pointer flex items-center justify-around dark:text-black"
+          >
+            {" "}
+            <BsFillSunFill className="text-amber-400" size="1.2rem" />
+            <BsFillMoonFill className="text-zinc-700" size="1.2rem" />
+            <input
+              type="checkbox"
+              id="check"
+              className="sr-only peer"
+              checked={theme === "dark"}
+              onChange={handleThemeChange}
+            />
+            <span className="w-2/5 h-4/5 bg-amber-400 absolute rounded-full left-1 top-1 peer-checked:bg-white peer-checked:left-11 transition-all duration-500 "></span>
+          </label>
         </div>
-        <div className='p-2 hover:bg-zinc-200 rounded-full cursor-pointer'>
-          <IoMdNotificationsOutline size='1.5rem' />
+
+        <div className="p-2 max-sm:hidden  hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full cursor-pointer">
+          <RiVideoAddLine size="1.5rem" />
         </div>
-        <div className='p-2  hover:bg-zinc-200 rounded-full cursor-pointer'>
-          <FaUserCircle size='1.5rem' />
+        <div className="p-2 max-sm:hidden  hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full cursor-pointer">
+          <IoMdNotificationsOutline size="1.5rem" />
+        </div>
+        <div className="p-2 max-sm:hidden   hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full cursor-pointer">
+          <FaUserCircle size="1.5rem" />
         </div>
       </div>
     </div>

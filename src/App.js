@@ -9,7 +9,8 @@ import WatchPage from "./components/WatchPage";
 import store from "./utils/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
+import ThemeContext from "./utils/ThemeContext";
+import { useEffect, useState } from "react";
 
 /* 
   Header
@@ -54,14 +55,37 @@ export const appRouter = createBrowserRouter([
 ]);
 
 function App() {
+  // Detecting the default theme
+  const isBrowserDefaulDark = () =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const getDefaultTheme = () => {
+    const localStorageTheme = localStorage.getItem("theme");
+    const browserDefault = isBrowserDefaulDark() ? "dark" : "light";
+    console.log(localStorageTheme || browserDefault)
+    return localStorageTheme || browserDefault;
+  };
+
+  const [theme, setTheme] = useState(getDefaultTheme());
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <div className="font-Roboto">
-          <Header />
-          <Outlet />
-        </div>
-        <ReactQueryDevtools initialIsOpen />
+        <ThemeContext.Provider value={{ theme, setTheme }}>
+          <div className="font-Roboto">
+            <Header />
+            <Outlet />
+          </div>
+          <ReactQueryDevtools initialIsOpen />
+        </ThemeContext.Provider>
       </Provider>
     </QueryClientProvider>
   );

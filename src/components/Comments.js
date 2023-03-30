@@ -58,12 +58,12 @@ const Comments = ({ videoId, commentCount }) => {
         </div>
         <div className="comment_input w-full ">
           <input
-            className="border-b w-full h-8 focus:outline-none py-2 focus:border-black focus:border-b-2"
+            className="border-b dark:border-white/50 w-full h-8 focus:outline-none py-2 focus:border-black focus:border-b-2 dark:bg-zinc-900"
             type="text"
             placeholder="Add a comment..."
           />
           <div className="flex justify-end gap-4 pt-2 font-semibold">
-            <button className="hover:bg-zinc-200 px-4 py-2 rounded-full">
+            <button className="hover:bg-zinc-200 dark:hover:bg-zinc-700 px-4 py-2 rounded-full">
               Cancel
             </button>
             <button className="bg-gray-200 px-4 py-2 rounded-3xl text-gray-500">
@@ -83,7 +83,7 @@ const Comments = ({ videoId, commentCount }) => {
         </div>
       ) : (
          <button
-          className="w-full font-bold bg-gray-200 rounded-3xl px-4 py-1"
+          className="w-full font-bold bg-gray-200 dark:bg-zinc-700 rounded-3xl px-4 py-1"
           onClick={fetchNextPage}
         >
           Show More
