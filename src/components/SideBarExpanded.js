@@ -49,14 +49,16 @@ const SideBarExpanded = () => {
         className="w-full h-full bg-black/40 absolute top-0 left-0 z-10"
         onClick={toggleSideBarHandler}
       ></div>
-      <div className="sidebar2 border dark:border-none flex  flex-col w-[15rem]  h-full overflow-y-scroll overflow-x-hidden absolute top-0 left-0 bg-white z-20 dark:bg-zinc-800 dark:text-white">
+      <div className="sidebar2 border dark:border-none flex  flex-col w-[15rem]  h-full overflow-y-scroll overflow-x-hidden absolute top-0 left-0 bg-white z-20 dark:bg-zinc-900 dark:text-white">
         <div className="toggleAndlogo flex pl-4 pt-4 items-center ">
-          <button className="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 " onClick={toggleSideBarHandler}>
+          <button
+            className="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 "
+            onClick={toggleSideBarHandler}
+          >
             <RxHamburgerMenu
               size="1.5rem"
               title="hambergur menu"
               className="cursor-pointer"
-              
             />
           </button>
           <div className="logo cursor-pointer flex items-center ">

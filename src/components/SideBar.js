@@ -71,7 +71,7 @@ const SideBar = () => {
 
   return isMenuOpen ? (
     !isMobile() ? (
-      <div className="sidebar__open border-r dark:border-none flex  flex-col w-[15rem]  h-[calc(100vh-4.625rem)] overflow-y-scroll min-w-fit bg-white dark:bg-zinc-800 dark:text-white transition-all duration-500">
+      <div className="sidebar__open border-r dark:border-none flex  flex-col w-[15rem]  h-[calc(100vh-4.625rem)] overflow-y-scroll min-w-fit bg-white dark:bg-zinc-900 dark:text-white transition-all duration-500">
         <div className="first-part flex pl-2 pr-6  pb-4 flex-col text-sm w-[15rem] ">
           <Link to="/">
             <div className="home px-4 flex py-2 items-center hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full rounded-lg  cursor-pointer">
@@ -234,7 +234,7 @@ const SideBar = () => {
         </div>
       </div>
     ) : (
-      <div className="sidebar__closed pr-1 border-r dark:border-none flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)] bg-white dark:bg-zinc-800 dark:text-white transition-all duration-500">
+      <div className="sidebar__closed pr-1 border-r dark:border-none flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)] bg-white dark:bg-zinc-900 dark:text-white transition-all duration-500">
         <Link to="/" className=" w-full">
           <div className="home py-4 flex flex-col items-center hover:bg-zinc-200 dark:hover:bg-zinc-700   w-full rounded-md">
             <MdHomeFilled size="1.5rem" className="mb-1" />
@@ -261,7 +261,7 @@ const SideBar = () => {
     )
   ) : (
     !isMobile() && (
-      <div className="sidebar__closed pr-1 border-r dark:border-none flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)] bg-white dark:bg-zinc-800 dark:text-white transition-all duration-500">
+      <div className="sidebar__closed pr-1 border-r dark:border-none flex flex-col text-xs w-18 items-center  h-[calc(100vh-4.625rem)] bg-white dark:bg-zinc-900 dark:text-white transition-all duration-500">
         <Link to="/" className=" w-full">
           <div className="home py-4 flex flex-col items-center hover:bg-zinc-200 dark:hover:bg-zinc-700  w-full rounded-md">
             <MdHomeFilled size="1.5rem" className="mb-1" />
