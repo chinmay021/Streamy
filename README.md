@@ -6,12 +6,12 @@
 Streamy is a web application built using React.js and Redux that allows users to watch and upload videos. It is similar to YouTube and uses the YouTube API to show videos and provide an experience similar to YouTube. The application also comes with features such as a video summarizer using Chat GPT, cache network calls using React Query to reduce the number of requests to the API, a highly optimized search feature using debouncing and caching, responsive design, and dark mode.
 
 
-## Demo
+## 💻Demo
 A live demo of the application is available at:\
 [streamydev.vercel.app](https://streamydev.vercel.app/)
 
 
-## Tech Stack
+## ⚙️Tech Stack
 - React.js
 - Redux toolkit 
 - React Query
@@ -20,7 +20,7 @@ A live demo of the application is available at:\
 
 
 
-## Features
+## 🚀Features
 
 ### **YouTube API Integration**
 
@@ -46,19 +46,19 @@ The Streamy application has been designed to work seamlessly across multiple dev
 
 Streamy comes with a built-in dark mode feature that allows users to switch between light and dark modes based on their preference. The dark mode feature enhances the user experience and reduces eye strain, especially when viewing videos at night.
 
-## Screenshots
+## 👍Screenshots
 
 ![App Screenshot](https://i.imgur.com/s5Jt9CT.png)
 
 
-## Getting Started
+## ➡️Getting Started
 To get started with the Streamy application, follow these steps:
 
     1. Clone the repository: git clone https://github.com/chinmay021/Streamy.git
     2. Install the dependencies: npm install
     3. Start the application: npm start
 ![install](https://i.imgur.com/KS3thn0.png)
-## Contribution
+##🤝 Contribution
 
 Contributions are always welcome!\
 If you want to contribute to Streamy, you can follow these steps:
