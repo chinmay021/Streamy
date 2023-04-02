@@ -34,10 +34,10 @@ const Tags = () => {
         {tags.map((tag, index) => {
           return (
             <button
-              className={`tag  px-3 w-fit py-2 mx-2 cursor-pointer rounded-lg bg-gray-100  dark:text-white dark:bg-zinc-800 ${
+              className={`tag  px-3 w-fit py-2 mx-2 cursor-pointer rounded-lg ${
                 active === tag
-                  ? "bg-slate-900 text-white dark:bg-slate-50 dark:text-zinc-900"
-                  : ""
+                  ? "bg-slate-900 text-white dark:bg-white dark:text-zinc-900"
+                  : " bg-gray-100  dark:text-white dark:bg-zinc-800"
               }`}
               key={index}
               onClick={() => handleSetHomeVideoByKeyword(tag)}
