@@ -22,19 +22,19 @@ A live demo of the application is available at:\
 
 ## Features
 
-#### **YouTube API Integration**
+### **YouTube API Integration**
 
 The Streamy application uses the YouTube API to show videos and provide a user experience similar to YouTube. The integration with the YouTube API ensures that the application has access to a vast library of videos, making it a comprehensive video streaming platform.
 
-#### **Cache Network Calls using React Query**
+### **Cache Network Calls using React Query**
 
 The Streamy application uses React Query to cache network calls, which helps reduce the number of requests to the API. Caching network calls ensures that the application runs faster and improves the overall user experience.
 
-#### **Optimized Search Feature using Debouncing and Caching**
+### **Optimized Search Feature using Debouncing and Caching**
 
 The Streamy application comes with an optimized search feature that uses debouncing and caching to reduce the number of API requests. The search feature is highly responsive and provides quick results to users, making it easier to find specific videos.
 
-#### **Video Summarizer using Chat GPT**
+### **Video Summarizer using Chat GPT**
 
 The Streamy application comes with an advanced video summarizer that uses Chat GPT to generate summaries of uploaded videos. The video summarizer feature allows users to quickly get an overview of a video's content without having to watch the entire video.
 
