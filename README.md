@@ -1,5 +1,5 @@
 
-![Logo](https://i.imgur.com/zDLDmPW.png)
+![Logo](https://i.imgur.com/a1Ck04B.png)
 
 
 #  Streamy
@@ -7,13 +7,11 @@ Streamy is a web application built using React.js and Redux that allows users to
 
 
 ## Demo
-
 A live demo of the application is available at:\
 [streamydev.vercel.app](https://streamydev.vercel.app/)
 
 
 ## Tech Stack
-
 - React.js
 - Redux toolkit 
 - React Query
