@@ -18,8 +18,7 @@ import { cacheResults } from "../utils/searchSlice";
 import ThemeContext from "../utils/ThemeContext";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { useVoice } from "../utils/useVoice";
-import VoiceSearch from './VoiceSearch';
-import {IoMicCircle} from "react-icons/io5"
+
 import mic_open from "../assests/mic_open.gif"
 
 const Header = () => {
@@ -30,7 +29,7 @@ const Header = () => {
   const searchRef = useClickOutside(() => setLoading(true));
   const inputRef = useRef();
 
-  const { text, isListening,listen, voiceSupported } = useVoice();
+  const { text, isListening,listen } = useVoice();
 
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -58,7 +57,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-     console.log("text -> ", {text});
       setSearchQuery(text);
   }, [text])
   

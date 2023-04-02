@@ -62,7 +62,6 @@ function App() {
   const getDefaultTheme = () => {
     const localStorageTheme = localStorage.getItem("theme");
     const browserDefault = isBrowserDefaulDark() ? "dark" : "light";
-    console.log(localStorageTheme || browserDefault)
     return localStorageTheme || browserDefault;
   };
 

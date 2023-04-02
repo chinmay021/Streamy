@@ -13,6 +13,25 @@ const WatchPage = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
 
+  function showPopup() {
+    alert("Text has been copied, allow pop-ups and  paste it in a new tab opened to get the summary.");
+  }
+
+
+
+  const handleSummaryButtonClick = async ()=>{
+    const text = `Summarize the YouTube video in Points and in details\nTitle: ${videoDetails?.snippet?.title} by ${videoDetails?.snippet?.channelTitle}`;
+
+    const copyToClipboard = async (str) => {
+      if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+        return await navigator.clipboard.writeText(str);
+      return Promise.reject("The Clipboard API is not available.");
+    };
+    await copyToClipboard(text);
+    showPopup();
+      window.open("https://chat.openai.com/chat", "_blank");
+  }
+
   const dispatch = useDispatch();
   const isSideBarOpen = useSelector((store) => store.app.isSideBarOpen);
 
@@ -71,6 +90,15 @@ const WatchPage = () => {
                 channelId={videoDetails?.snippet?.channelId}
               />
             )}
+          </div>
+          <div>
+            <button
+              className="bg-zinc-900 text-white rounded-3xl py-1 px-3 mb-4  dark:text-black dark:bg-white"
+              // onClick={makeFinalTranscriptText}
+              onClick={handleSummaryButtonClick}
+            >
+            Summarize
+            </button>
           </div>
           <Comments
             videoId={videoId}

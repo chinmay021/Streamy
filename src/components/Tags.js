@@ -31,15 +31,8 @@ const Tags = () => {
           : 'lg:w-[calc(100vw-8rem)] w-[calc(100vw-3rem)]'
       } min-w-[250px]
       pt-2`}
-      //relative top-0 left-0
     >
-      {/* <button
-        className=" absolute left-0 bg-white rounded-[50%] shadow-[0_0_10px_#999] "
-        id="btn-scroll-left"
-        onClick={scrollHorizontally(-1)}
-      >
-        <BiChevronLeft size="2rem" />
-      </button> */}
+
       <div className='tags-wrapper flex w-full overflow-x-hidden overflow-y-hidden '>
         {tags.map((tag, index) => {
           return (
@@ -56,13 +49,6 @@ const Tags = () => {
         })}
       </div>
 
-      {/* <button
-        className="absolute right-0  bg-red-400 rounded-[50%] "
-        id="btn-scroll-right"
-        onClick={scrollHorizontally(-1)}
-      >
-        <BiChevronRight size="2rem" />
-      </button> */}
     </div>
   );
 };
