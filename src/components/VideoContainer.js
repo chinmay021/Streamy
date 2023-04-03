@@ -45,7 +45,7 @@ const VideoContainer = () => {
           `/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=8&chart=mostPopular&regionCode=IN&pageToken=${
             nextPageToken ?? ""
           }&videoDuration=medium&key=` +
-          process.env.REACT_APP_GOOGLE_API_KEY_7
+          process.env.REACT_APP_GOOGLE_API_KEY_4
       );
       const data = await response.json();
       return data;
