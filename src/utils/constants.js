@@ -27,4 +27,4 @@ export const YOUTUBE_MOST_POPULAR = 'https://youtube.googleapis.com/youtube/v3';
 export const BASE_URL = 'https://youtube.googleapis.com/youtube/v3';
 
 export const YOUTUBE_SEARCH_SUGGESTION_API_URL =
-  'https://corsanywhere.herokuapp.com/http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=';
+  'https://cors-anywhere.herokuapp.com/http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=';
