@@ -85,7 +85,7 @@ const VideoContainer = () => {
         BASE_URL +
           `/search?part=snippet&maxResults=8&type=video&q=${searchText}&pageToken=${
             nextPageToken ?? ""
-          }&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY_5}`
+          }&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY_7}`
       );
       const data = await response.json();
       return data;
