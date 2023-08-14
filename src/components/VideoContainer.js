@@ -54,30 +54,25 @@ const VideoContainer = () => {
     }
   };
 
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-    isSuccess,
-  } = useInfiniteQuery(
-    ["home-videos", category],
-    ({ pageParam = null }) =>
-      category === "All"
-        ? getVideos(pageParam)
-        : searchVideoByKeyword(category, pageParam),
-    {
-      getNextPageParam: (lastPage, pages) => {
-        return lastPage?.nextPageToken;
-      },
-      refetchOnWindowFocus: false,
-      refetchOnmount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      staleTime: 1000 * 60 * 60 * 24,
-      cacheTime: 1000 * 60 * 60 * 24,
-    }
-  );
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, isSuccess } =
+    useInfiniteQuery(
+      ["home-videos", category],
+      ({ pageParam = null }) =>
+        category === "All"
+          ? getVideos(pageParam)
+          : searchVideoByKeyword(category, pageParam),
+      {
+        getNextPageParam: (lastPage, pages) => {
+          return lastPage?.nextPageToken;
+        },
+        refetchOnWindowFocus: false,
+        refetchOnmount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        staleTime: 1000 * 60 * 60 * 24,
+        cacheTime: 1000 * 60 * 60 * 24,
+      }
+    );
 
   const searchVideoByKeyword = async (searchText, nextPageToken = "") => {
     try {
@@ -88,6 +83,10 @@ const VideoContainer = () => {
           }&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY_7}`
       );
       const data = await response.json();
+      if (!response.ok) {
+        console.log(data.error);
+        throw new Error(data.error.message);
+      }
       return data;
     } catch (error) {
       console.log(error);
@@ -115,32 +114,34 @@ const VideoContainer = () => {
         {isSuccess &&
           data?.pages.map((page, index) => {
             return (
-              page?.items && <Fragment  key={index} >
-                {page.items.map((video, index) => {
-                  if (index === page.items.length - 1) {
-                    return (
-                      <Link
-                        ref={bottomRef}
-                        className="w-full"
-                        to={`/watch?v=${video?.id?.videoId || video.id}`}
-                        key={video?.id?.videoId || video.id}
-                      >
-                        <VideoCard video={video} />
-                      </Link>
-                    );
-                  } else {
-                    return (
-                      <Link
-                        className="w-full"
-                        to={`/watch?v=${video?.id?.videoId || video.id}`}
-                        key={video?.id?.videoId || video.id}
-                      >
-                        <VideoCard video={video} />
-                      </Link>
-                    );
-                  }
-                })}
-              </Fragment>
+              page?.items && (
+                <Fragment key={index}>
+                  {page.items.map((video, index) => {
+                    if (index === page.items.length - 1) {
+                      return (
+                        <Link
+                          ref={bottomRef}
+                          className="w-full"
+                          to={`/watch?v=${video?.id?.videoId || video.id}`}
+                          key={video?.id?.videoId || video.id}
+                        >
+                          <VideoCard video={video} />
+                        </Link>
+                      );
+                    } else {
+                      return (
+                        <Link
+                          className="w-full"
+                          to={`/watch?v=${video?.id?.videoId || video.id}`}
+                          key={video?.id?.videoId || video.id}
+                        >
+                          <VideoCard video={video} />
+                        </Link>
+                      );
+                    }
+                  })}
+                </Fragment>
+              )
             );
           })}
       </div>

@@ -18,8 +18,9 @@ import { cacheResults } from "../utils/searchSlice";
 import ThemeContext from "../utils/ThemeContext";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { useVoice } from "../utils/useVoice";
+import { changeCategory } from "../utils/categorySlice";
 
-import mic_open from "../assests/mic_open.gif"
+import mic_open from "../assests/mic_open.gif";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,7 +30,7 @@ const Header = () => {
   const searchRef = useClickOutside(() => setLoading(true));
   const inputRef = useRef();
 
-  const { text, isListening,listen } = useVoice();
+  const { text, isListening, listen } = useVoice();
 
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -42,7 +43,18 @@ const Header = () => {
   const searchCache = useSelector((store) => store.search.suggestions);
   const dispatch = useDispatch();
 
+  const category = useSelector((store) => store.videosCategory.category);
+
   const route = useLocation();
+
+  const handleSetHomeVideoByKeyword = (searchText) => {
+    if (category !== searchText) {
+      dispatch(changeCategory(searchText));
+    }
+    setLoading(true);
+    setSuggestions([]);
+    setSearchQuery("");
+  };
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
@@ -57,9 +69,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-      setSearchQuery(text);
-  }, [text])
-  
+    setSearchQuery(text);
+  }, [text]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -138,6 +149,11 @@ const Header = () => {
             onFocus={(e) => {
               setLoading(false);
             }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                handleSetHomeVideoByKeyword(e.target.value);
+              }
+            }}
           />
           <div
             className="p-3 cursor-pointer hover:bg-zinc-200 px-8 rounded-r-3xl bg-zinc-100 border-l-2 border-zinc-200 max-md:bg-white max-md:border-none max-md:px-4 max-lg:px-4 dark:bg-zinc-800 dark:border-l dark:border-gray-500 "
@@ -146,15 +162,23 @@ const Header = () => {
               setLoading(false);
             }}
           >
-            <TfiSearch size="1.2rem" className="" />
+            <button
+              className="flex items-center"
+              onClick={() => handleSetHomeVideoByKeyword(searchQuery)}
+            >
+              <TfiSearch size="1.2rem" className="" />
+            </button>
           </div>
         </div>
         <div
           className="voice-icon max-lg:hidden ml-4 p-2 hover:bg-zinc-200 rounded-full cursor-pointer dark:text-white dark:hover:bg-zinc-700"
           onClick={handleVoiceSearch}
         >
-         {isListening ? <img  src={mic_open} width="30px" alt="mic open" /> : 
-          <MdKeyboardVoice size="1.5rem" />}
+          {isListening ? (
+            <img src={mic_open} width="30px" alt="mic open" />
+          ) : (
+            <MdKeyboardVoice size="1.5rem" />
+          )}
         </div>
         {/* {isListening && <VoiceSearch text={text}/>} */}
         {!loading && (

@@ -106,7 +106,7 @@ const WatchPage = () => {
           />
         </div>
         <div className="col2 col-span-12 lg:col-span-4 ">
-          <VideoSuggestions videoId={videoId} />
+          <VideoSuggestions videoId={videoId} videoTitle={videoDetails?.snippet?.title} />
         </div>
       </div>
     </div>
