@@ -8,7 +8,7 @@ const VideoSuggestions = ({ videoId, videoTitle }) => {
   const searchVideoByKeyword = async (searchText) => {
     const response = await fetch(
       BASE_URL +
-        `/search?part=snippet&maxResults=8&type=video&q=${searchText}&order=viewCount&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY_7}`
+        `/search?part=snippet&maxResults=8&type=video&q=${searchText}&order=viewCount&videoDuration=medium&key=${process.env.REACT_APP_GOOGLE_API_KEY_5}`
     );
     const data = await response.json();
     if (!response.ok) {
